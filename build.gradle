@@ -28,6 +28,7 @@ ext {
 
 dependencies {
   implementation 'org.springframework.cloud:spring-cloud-starter'
+
   compileOnly 'org.projectlombok:lombok'
   developmentOnly 'org.springframework.boot:spring-boot-devtools'
   developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
@@ -46,11 +47,15 @@ test {
   useJUnitPlatform()
 }
 
-spotless {
-  java {
-    removeUnusedImports()
-    trimTrailingWhitespace()
-    endWithNewline()
-    googleJavaFormat()
+allprojects {
+  apply plugin: 'com.diffplug.spotless'
+
+  spotless {
+    java {
+      removeUnusedImports()
+      trimTrailingWhitespace()
+      endWithNewline()
+      googleJavaFormat()
+    }
   }
 }

@@ -1,0 +1,25 @@
+scalar BigDecimal
+
+type Query {
+  foods: [Food!]!
+}
+
+type Food {
+  id: ID!
+  name: String!
+  code: String!
+  foodNutrients: [FoodNutrient!]!
+}
+
+type FoodNutrient {
+  id: ID!
+  food: Food!
+  nutrient: Nutrient!
+  value: BigDecimal
+}
+
+type Nutrient {
+  id: ID!
+  name: String!
+  code: String!
+}
