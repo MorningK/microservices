@@ -1,2 +1,2 @@
 rootProject.name = 'microservices'
-include ':grahpql-service'
+include ':grahpql-service', ':restservice'

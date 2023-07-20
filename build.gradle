@@ -48,7 +48,12 @@ test {
 }
 
 allprojects {
+  apply plugin: 'java'
   apply plugin: 'com.diffplug.spotless'
+
+  repositories {
+    mavenCentral()
+  }
 
   spotless {
     java {
