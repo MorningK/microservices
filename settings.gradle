@@ -1,3 +1,5 @@
 rootProject.name = 'microservices'
 include 'common'
 include ':grahpql-service', ':restservice', 'eureka'
+include 'gateway'
+

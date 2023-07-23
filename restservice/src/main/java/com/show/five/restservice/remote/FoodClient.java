@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "graphql-service", path = "/graphql")
+@FeignClient(name = "GRAPHQL-SERVICE", path = "/graphql")
 public interface FoodClient {
   record FoodsData(List<Food> foods) {}
 
