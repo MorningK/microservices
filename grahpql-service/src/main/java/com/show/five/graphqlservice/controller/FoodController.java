@@ -13,6 +13,7 @@ import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
@@ -43,6 +44,11 @@ public class FoodController {
     final Food food = buildFood();
     food.setId(id);
     return food;
+  }
+
+  @MutationMapping
+  public Food createFood(@Argument Long id, @Argument String name, @Argument String code) {
+    return Food.builder().id(id).name(name).code(code).build();
   }
 
   private Food buildFood() {

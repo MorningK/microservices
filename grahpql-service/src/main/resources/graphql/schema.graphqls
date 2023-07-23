@@ -5,6 +5,14 @@ type Query {
   food(id: ID!): Food!
 }
 
+type Mutation {
+  createFood(
+    id: ID!
+    name: String!
+    code: String!
+  ): Food!
+}
+
 type Food {
   id: ID!
   name: String!

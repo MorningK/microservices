@@ -15,6 +15,8 @@ public interface FoodClient {
 
   record FoodData(Food food) {}
 
+  record CreateFoodData(Food createFood) {}
+
   @PostMapping(
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_GRAPHQL_RESPONSE_VALUE})
   GraphqlResponse<FoodsData> foods(@RequestBody GraphqlRequest request);
@@ -22,4 +24,8 @@ public interface FoodClient {
   @PostMapping(
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_GRAPHQL_RESPONSE_VALUE})
   GraphqlResponse<FoodData> food(@RequestBody GraphqlRequest request);
+
+  @PostMapping(
+      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_GRAPHQL_RESPONSE_VALUE})
+  <T> GraphqlResponse<T> request(@RequestBody GraphqlRequest request);
 }
