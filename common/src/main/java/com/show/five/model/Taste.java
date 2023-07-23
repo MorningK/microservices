@@ -1,4 +1,4 @@
-package com.show.five.restservice.model;
+package com.show.five.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

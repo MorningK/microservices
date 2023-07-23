@@ -1,6 +1,5 @@
-package com.show.five.restservice.model;
+package com.show.five.model;
 
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,11 +11,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Person {
+public class Nutrient {
   private Long id;
   private String name;
-  private Integer age;
-  private Integer height;
-  private Integer weight;
-  private List<Taste> tastes;
+  private String code;
 }

@@ -1,21 +1,27 @@
 package com.show.five.graphqlservice.controller;
 
 import com.github.javafaker.Faker;
-import com.show.five.graphqlservice.model.Food;
-import com.show.five.graphqlservice.model.Nutrient;
+import com.show.five.graphqlservice.remote.PersonClient;
+import com.show.five.model.Food;
+import com.show.five.model.Nutrient;
+import com.show.five.model.Person;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 
+@Slf4j
 @RequiredArgsConstructor
 @Controller
 public class FoodController {
   private final Faker faker;
+  private final PersonClient personClient;
 
   @QueryMapping
   public List<Food> foods() {
@@ -28,6 +34,8 @@ public class FoodController {
               .code(faker.code().imei())
               .build());
     }
+    List<Person> persons = personClient.getPersons();
+    log.info("getPersons within count: {}", persons.size());
     return foods;
   }
 

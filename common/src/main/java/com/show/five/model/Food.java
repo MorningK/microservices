@@ -1,4 +1,4 @@
-package com.show.five.graphqlservice.model;
+package com.show.five.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Nutrient {
+public class Food {
   private Long id;
   private String name;
   private String code;
