@@ -1,5 +1,7 @@
 package com.show.five.restservice.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import com.show.five.model.Food;
 import com.show.five.model.Person;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PersonController {
   private final Faker faker;
   private final FoodClient foodClient;
+  private static final ObjectMapper objectMapper = new ObjectMapper();
 
   @GetMapping("persons")
   public List<Person> people() {
@@ -129,10 +132,11 @@ public class PersonController {
     variables.put("id", request.getId());
     variables.put("name", request.getName());
     variables.put("code", request.getCode());
-    GraphqlResponse<CreateFoodData> response =
+    GraphqlResponse<Object> response =
         foodClient.request(new GraphqlRequest("CreateFood", query, variables));
+    CreateFoodData data = objectMapper.convertValue(response.getData(), new TypeReference<>() {});
     log.info("CreateFoodData: {}", response);
-    return response.getData() == null ? null : response.getData().createFood();
+    return response.getData() == null ? null : data.createFood();
   }
 
   private List<Taste> generateTastes() {

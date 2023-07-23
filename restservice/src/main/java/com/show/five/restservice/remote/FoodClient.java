@@ -27,5 +27,5 @@ public interface FoodClient {
 
   @PostMapping(
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_GRAPHQL_RESPONSE_VALUE})
-  <T> GraphqlResponse<T> request(@RequestBody GraphqlRequest request);
+  GraphqlResponse<Object> request(@RequestBody GraphqlRequest request);
 }

@@ -3,6 +3,7 @@ package com.show.five.graphqlservice.controller;
 import com.github.javafaker.Faker;
 import com.show.five.graphqlservice.remote.PersonClient;
 import com.show.five.model.Food;
+import com.show.five.model.FoodNutrient;
 import com.show.five.model.Nutrient;
 import com.show.five.model.Person;
 import java.math.BigDecimal;
@@ -76,6 +77,4 @@ public class FoodController {
     }
     return foodNutrients;
   }
-
-  record FoodNutrient(Long id, Food food, Nutrient nutrient, BigDecimal value) {}
 }
