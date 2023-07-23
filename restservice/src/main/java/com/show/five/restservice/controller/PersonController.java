@@ -1,9 +1,16 @@
 package com.show.five.restservice.controller;
 
 import com.github.javafaker.Faker;
+import com.show.five.model.Food;
 import com.show.five.model.Person;
 import com.show.five.model.Taste;
+import com.show.five.restservice.remote.FoodClient;
+import com.show.five.restservice.remote.FoodClient.FoodData;
+import com.show.five.restservice.remote.FoodClient.FoodsData;
+import graphql.GraphqlRequest;
+import graphql.GraphqlResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PersonController {
   private final Faker faker;
+  private final FoodClient foodClient;
 
   @GetMapping("persons")
   public List<Person> people() {
@@ -33,7 +41,66 @@ public class PersonController {
               .build());
     }
     log.info("find person with count: {}", count);
+    String query = """
+        query Food($id: ID!) {
+          food(id: $id) {
+            id
+            name
+            code
+            foodNutrients {
+              id
+              value
+              nutrient {
+                id
+                name
+                code
+              }
+            }
+          }
+        }
+        """;
+    final HashMap<String, Object> variables = new HashMap<>();
+    variables.put("id", -2);
+    final GraphqlResponse<FoodData> graphqlResponse = foodClient.food(
+        new GraphqlRequest(
+            "Food", query, variables
+        )
+    );
+    if (graphqlResponse.getData() != null) {
+      log.info("Food name: {}", graphqlResponse.getData().food().getName());
+    }
     return people;
+  }
+
+  @GetMapping("foods")
+  public List<Food> foods() {
+    String query = """
+        query {
+          foods {
+            id
+            name
+            code
+            foodNutrients {
+              id
+              value
+              nutrient {
+                id
+                name
+                code
+              }
+            }
+          }
+        }
+        """;
+    final GraphqlResponse<FoodsData> graphqlResponse = foodClient.foods(
+        new GraphqlRequest(
+            "Foods", query, new HashMap<>()
+        )
+    );
+    if (graphqlResponse.getData() != null) {
+      return graphqlResponse.getData().foods();
+    }
+    return null;
   }
 
   private List<Taste> generateTastes() {

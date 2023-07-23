@@ -8,10 +8,12 @@ import com.show.five.model.Person;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
@@ -28,15 +30,29 @@ public class FoodController {
     List<Food> foods = new ArrayList<>();
     for (int i = 0; i < new Random().nextInt(100); i++) {
       foods.add(
-          Food.builder()
-              .id(faker.random().nextLong())
-              .name(faker.food().fruit())
-              .code(faker.code().imei())
-              .build());
+          buildFood());
     }
     List<Person> persons = personClient.getPersons();
-    log.info("getPersons within count: {}", persons.size());
+    log.info("getPersons within count: {}", persons == null ? null : persons.size());
     return foods;
+  }
+
+  @QueryMapping
+  public Food food(@Argument Long id) {
+    if (id <= 0) {
+      throw new NoSuchElementException();
+    }
+    final Food food = buildFood();
+    food.setId(id);
+    return food;
+  }
+
+  private Food buildFood() {
+    return Food.builder()
+        .id(faker.random().nextLong())
+        .name(faker.food().fruit())
+        .code(faker.code().imei())
+        .build();
   }
 
   @SchemaMapping

@@ -2,6 +2,7 @@ scalar BigDecimal
 
 type Query {
   foods: [Food!]!
+  food(id: ID!): Food!
 }
 
 type Food {
