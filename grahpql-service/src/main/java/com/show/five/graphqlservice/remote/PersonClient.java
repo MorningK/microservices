@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@FeignClient(value = "REST-SERVICE", fallback = PersonClientFallback.class)
+@FeignClient(name = "rest-service", fallback = PersonClientFallback.class)
 public interface PersonClient {
   @GetMapping("persons")
   List<Person> getPersons();

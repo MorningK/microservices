@@ -61,7 +61,7 @@ public class PersonController {
         }
         """;
     final HashMap<String, Object> variables = new HashMap<>();
-    variables.put("id", -2);
+    variables.put("id", 2);
     final GraphqlResponse<FoodData> graphqlResponse =
         foodClient.food(new GraphqlRequest("Food", query, variables));
     if (graphqlResponse.getData() != null) {
