@@ -12,17 +12,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient("GRAPHQL-SERVICE")
 public interface FoodClient {
   record FoodsData(List<Food> foods) {}
+
   record FoodData(Food food) {}
 
-  @PostMapping(value = "/graphql", consumes = {
-      MediaType.APPLICATION_JSON_VALUE,
-      MediaType.APPLICATION_GRAPHQL_RESPONSE_VALUE
-  })
+  @PostMapping(
+      value = "/graphql",
+      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_GRAPHQL_RESPONSE_VALUE})
   GraphqlResponse<FoodsData> foods(@RequestBody GraphqlRequest request);
 
-  @PostMapping(value = "/graphql", consumes = {
-      MediaType.APPLICATION_JSON_VALUE,
-      MediaType.APPLICATION_GRAPHQL_RESPONSE_VALUE
-  })
+  @PostMapping(
+      value = "/graphql",
+      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_GRAPHQL_RESPONSE_VALUE})
   GraphqlResponse<FoodData> food(@RequestBody GraphqlRequest request);
 }

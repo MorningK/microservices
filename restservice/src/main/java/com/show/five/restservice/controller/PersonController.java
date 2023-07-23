@@ -41,7 +41,8 @@ public class PersonController {
               .build());
     }
     log.info("find person with count: {}", count);
-    String query = """
+    String query =
+        """
         query Food($id: ID!) {
           food(id: $id) {
             id
@@ -61,11 +62,8 @@ public class PersonController {
         """;
     final HashMap<String, Object> variables = new HashMap<>();
     variables.put("id", -2);
-    final GraphqlResponse<FoodData> graphqlResponse = foodClient.food(
-        new GraphqlRequest(
-            "Food", query, variables
-        )
-    );
+    final GraphqlResponse<FoodData> graphqlResponse =
+        foodClient.food(new GraphqlRequest("Food", query, variables));
     if (graphqlResponse.getData() != null) {
       log.info("Food name: {}", graphqlResponse.getData().food().getName());
     }
@@ -74,7 +72,8 @@ public class PersonController {
 
   @GetMapping("foods")
   public List<Food> foods() {
-    String query = """
+    String query =
+        """
         query {
           foods {
             id
@@ -92,11 +91,8 @@ public class PersonController {
           }
         }
         """;
-    final GraphqlResponse<FoodsData> graphqlResponse = foodClient.foods(
-        new GraphqlRequest(
-            "Foods", query, new HashMap<>()
-        )
-    );
+    final GraphqlResponse<FoodsData> graphqlResponse =
+        foodClient.foods(new GraphqlRequest("Foods", query, new HashMap<>()));
     if (graphqlResponse.getData() != null) {
       return graphqlResponse.getData().foods();
     }

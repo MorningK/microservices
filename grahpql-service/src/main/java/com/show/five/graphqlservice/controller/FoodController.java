@@ -12,7 +12,6 @@ import java.util.NoSuchElementException;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
@@ -29,8 +28,7 @@ public class FoodController {
   public List<Food> foods() {
     List<Food> foods = new ArrayList<>();
     for (int i = 0; i < new Random().nextInt(100); i++) {
-      foods.add(
-          buildFood());
+      foods.add(buildFood());
     }
     List<Person> persons = personClient.getPersons();
     log.info("getPersons within count: {}", persons == null ? null : persons.size());
